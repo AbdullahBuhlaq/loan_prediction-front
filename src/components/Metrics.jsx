@@ -10,7 +10,7 @@ function ModelMetrics() {
     const fetchMetrics = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/model_metrics"
+          "https://abdullahbuhlaq3.pythonanywhere.com/api/model_metrics"
         );
         setMetrics(response.data);
         setLoading(false);

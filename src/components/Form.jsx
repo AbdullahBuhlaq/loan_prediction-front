@@ -1,39 +1,42 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 function Form() {
   const [formData, setFormData] = useState({
-    ApplicantIncome: '',
-    CoapplicantIncome: '',
-    Credit_History: '1',
-    Dependents: '0',
-    Education: 'Graduate',
-    Gender: 'Male',
-    LoanAmount: '',
-    Loan_Amount_Term: '360',
-    Married: 'No',
-    Property_Area: 'Urban',
-    Self_Employed: 'No'
+    ApplicantIncome: "",
+    CoapplicantIncome: "",
+    Credit_History: "1",
+    Dependents: "0",
+    Education: "Graduate",
+    Gender: "Male",
+    LoanAmount: "",
+    Loan_Amount_Term: "360",
+    Married: "No",
+    Property_Area: "Urban",
+    Self_Employed: "No",
   });
-  
+
   const [result, setResult] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/predict', formData);
+      const response = await axios.post(
+        "https://abdullahbuhlaq3.pythonanywhere.com/predict",
+        formData
+      );
       setResult(response.data);
     } catch (error) {
-      console.error('Prediction error:', error);
-      setResult({ error: 'Prediction failed' });
+      console.error("Prediction error:", error);
+      setResult({ error: "Prediction failed" });
     }
   };
 
@@ -57,7 +60,11 @@ function Form() {
 
       <div>
         <label>Dependents:</label>
-        <select name="Dependents" value={formData.Dependents} onChange={handleChange}>
+        <select
+          name="Dependents"
+          value={formData.Dependents}
+          onChange={handleChange}
+        >
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -67,7 +74,11 @@ function Form() {
 
       <div>
         <label>Education:</label>
-        <select name="Education" value={formData.Education} onChange={handleChange}>
+        <select
+          name="Education"
+          value={formData.Education}
+          onChange={handleChange}
+        >
           <option value="Graduate">Graduate</option>
           <option value="Not Graduate">Not Graduate</option>
         </select>
@@ -75,7 +86,11 @@ function Form() {
 
       <div>
         <label>Self Employed:</label>
-        <select name="Self_Employed" value={formData.Self_Employed} onChange={handleChange}>
+        <select
+          name="Self_Employed"
+          value={formData.Self_Employed}
+          onChange={handleChange}
+        >
           <option value="No">No</option>
           <option value="Yes">Yes</option>
         </select>
@@ -83,9 +98,9 @@ function Form() {
 
       <div>
         <label>Applicant Income:</label>
-        <input 
-          type="number" 
-          name="ApplicantIncome" 
+        <input
+          type="number"
+          name="ApplicantIncome"
           value={formData.ApplicantIncome}
           onChange={handleChange}
         />
@@ -93,9 +108,9 @@ function Form() {
 
       <div>
         <label>Coapplicant Income:</label>
-        <input 
-          type="number" 
-          name="CoapplicantIncome" 
+        <input
+          type="number"
+          name="CoapplicantIncome"
           value={formData.CoapplicantIncome}
           onChange={handleChange}
         />
@@ -103,9 +118,9 @@ function Form() {
 
       <div>
         <label>Loan Amount:</label>
-        <input 
-          type="number" 
-          name="LoanAmount" 
+        <input
+          type="number"
+          name="LoanAmount"
           value={formData.LoanAmount}
           onChange={handleChange}
         />
@@ -113,9 +128,9 @@ function Form() {
 
       <div>
         <label>Loan Term (months):</label>
-        <input 
-          type="number" 
-          name="Loan_Amount_Term" 
+        <input
+          type="number"
+          name="Loan_Amount_Term"
           value={formData.Loan_Amount_Term}
           onChange={handleChange}
         />
@@ -123,7 +138,11 @@ function Form() {
 
       <div>
         <label>Credit History:</label>
-        <select name="Credit_History" value={formData.Credit_History} onChange={handleChange}>
+        <select
+          name="Credit_History"
+          value={formData.Credit_History}
+          onChange={handleChange}
+        >
           <option value="1">Good (1)</option>
           <option value="0">Bad (0)</option>
         </select>
@@ -131,7 +150,11 @@ function Form() {
 
       <div>
         <label>Property Area:</label>
-        <select name="Property_Area" value={formData.Property_Area} onChange={handleChange}>
+        <select
+          name="Property_Area"
+          value={formData.Property_Area}
+          onChange={handleChange}
+        >
           <option value="Urban">Urban</option>
           <option value="Rural">Rural</option>
           <option value="Semiurban">Semiurban</option>
@@ -139,14 +162,14 @@ function Form() {
       </div>
 
       <button type="submit">Predict Loan Approval</button>
-      
+
       {result && (
         <div className="result">
           {result.error ? (
             <p className="error">{result.error}</p>
           ) : (
             <>
-              <h3>Prediction: {result.prediction ? 'Approved' : 'Rejected'}</h3>
+              <h3>Prediction: {result.prediction ? "Approved" : "Rejected"}</h3>
               <p>Probability: {(result.probability * 100).toFixed(2)}%</p>
             </>
           )}

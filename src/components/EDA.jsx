@@ -9,7 +9,9 @@ function EDA() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/eda");
+        const response = await axios.get(
+          "https://abdullahbuhlaq3.pythonanywhere.com/api/eda"
+        );
         setEdaData(response.data);
         setLoading(false);
       } catch (error) {
