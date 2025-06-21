@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import EDA from "./components/EDA";
 import Metrics from "./components/Metrics";
 import "./index.css";
+import Reports from "./components/Reports";
 
 function App() {
   const [activeTab, setActiveTab] = useState("form");
